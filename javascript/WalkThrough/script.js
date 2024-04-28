@@ -3,21 +3,24 @@
 // scroll to element if not in viewport to highlight
 
 const steps = ["3", "header", "footer", "1", "2", "5", "6", "7", "8"];
-
 let index = 0;
 
 const hightlight = (id) => {
   document.getElementById("highlight")?.remove();
   document.getElementById("popover")?.remove();
+
   const element = document.getElementById(id);
+
+  scrollToFunc(element);
+
   const elementDimention = element.getBoundingClientRect();
   hightlightHelper(elementDimention);
   popover(elementDimention);
 };
 
 const hightlightHelper = (elementDimention) => {
-  const top = elementDimention.top;
-  const left = elementDimention.left;
+  const top = elementDimention.top + window.scrollY;
+  const left = elementDimention.left + window.scrollX;
   const width = elementDimention.width;
   const height = elementDimention.height;
 
@@ -40,8 +43,8 @@ const hightlightHelper = (elementDimention) => {
 };
 
 const popover = (elementDimention) => {
-  const bottom = elementDimention.bottom;
-  const left = elementDimention.left;
+  const bottom = elementDimention.bottom + window.scrollY;
+  const left = elementDimention.left + window.scrollX;
   const right = elementDimention.right;
 
   const ele = document.createElement("div");
@@ -69,7 +72,7 @@ const navigationButton = () => {
     }
   });
   const prevButton = document.createElement("button");
-  prevButton.textContent = "Prev <";
+  prevButton.textContent = "< Prev";
   prevButton.addEventListener("click", () => {
     if (index > 0) {
       index--;
@@ -81,6 +84,14 @@ const navigationButton = () => {
   fragment.appendChild(nextButton);
 
   return fragment;
+};
+
+const scrollToFunc = (element) => {
+  const eleTop = element.offsetTop;
+  window.scrollTo({
+    top: eleTop,
+    behavior: "smooth",
+  });
 };
 
 hightlight(steps[index]);
