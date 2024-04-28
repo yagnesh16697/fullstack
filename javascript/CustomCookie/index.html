@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      const useCustomCookie = () => {
+        const store = new Map();
+
+        Object.defineProperty(document, "myCookie", {
+          configurable: true,
+          set(val) {
+            const { key, value, options } = parseCookieString(val);
+            let expiry = Infinity;
+
+            if (options["max-age"]) {
+              expiry = Date.now() + options["max-age"] * 1000;
+            }
+            store.set(key, { value, expiry });
+          },
+          get() {
+            const time = Date.now();
+            const cookies = [];
+            for (let [key, { value, expiry }] of store) {
+              if (time >= expiry) {
+                store.delete(key);
+              } else {
+                cookies.push(`${key}=${value}`);
+              }
+            }
+            return cookies.join("; ");
+          },
+        });
+
+        const parseCookieString = (str) => {
+          const [nameValue, ...rest] = str.split(";");
+          const [key, value] = separateKeyValue(nameValue);
+          const options = {};
+
+          for (let option of rest) {
+            const [key, value] = separateKeyValue(option);
+            options[key] = value;
+          }
+
+          return { key, value, options };
+        };
+
+        const separateKeyValue = (str) => {
+          const [key, value] = str.split("=");
+          return [key, value];
+        };
+      };
+      useCustomCookie();
+      document.myCookie = "name=yagnesh;max-age=1";
+      document.myCookie = "blog=yagneshpatel.com;";
+      console.log(document.myCookie);
+
+      setTimeout(() => {
+        console.log(document.myCookie);
+      }, 1500);
+    </script>
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Cookie</h1>
+  </body>
+</html>

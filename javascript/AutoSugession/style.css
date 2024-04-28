@@ -1,0 +1,17 @@
+main {
+  width: 400px;
+  margin: 0 auto;
+  margin-top: 60px;
+}
+
+input {
+  padding: 10px;
+  width: 400px;
+}
+
+#results {
+  display: none;
+  border: 1px red solid;
+  margin-top: 10px;
+  min-height: 200px;
+}
