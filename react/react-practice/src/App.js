@@ -3,6 +3,7 @@ import useDocumentTitle from "./hooks/useDocumentTitle";
 import Debounce from "./problems/Debounce";
 import useToggle from "./hooks/useToggle";
 import usePreferredLanguage from "./hooks/usePreferredLanguage";
+import useFavicon from "./hooks/useFavicon";
 
 function App() {
   useDocumentTitle("Document Title");
@@ -10,6 +11,7 @@ function App() {
 
   const lang = usePreferredLanguage();
 
+  useFavicon("https://usehooks.com/favicon.png");
   const onClickChangeState = () => {
     setOn(!on);
   };
