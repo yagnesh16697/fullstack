@@ -2,10 +2,13 @@ import "./App.css";
 import useDocumentTitle from "./hooks/useDocumentTitle";
 import Debounce from "./problems/Debounce";
 import useToggle from "./hooks/useToggle";
+import usePreferredLanguage from "./hooks/usePreferredLanguage";
 
 function App() {
   useDocumentTitle("Document Title");
   const [on, setOn] = useToggle(false);
+
+  const lang = usePreferredLanguage();
 
   const onClickChangeState = () => {
     setOn(!on);
@@ -16,6 +19,7 @@ function App() {
       <button onClick={onClickChangeState}>Change State</button>
       <h1>{+on}</h1>
       <Debounce />
+      <h1>{lang}</h1>
     </div>
   );
 }
