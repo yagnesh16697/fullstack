@@ -1,12 +1,20 @@
 import "./App.css";
 import useDocumentTitle from "./hooks/useDocumentTitle";
 import Debounce from "./problems/Debounce";
+import useToggle from "./hooks/useToggle";
 
 function App() {
-  //useDocument Hook
   useDocumentTitle("Document Title");
+  const [on, setOn] = useToggle(false);
+
+  const onClickChangeState = () => {
+    setOn(!on);
+  };
+
   return (
     <div className="App">
+      <button onClick={onClickChangeState}>Change State</button>
+      <h1>{+on}</h1>
       <Debounce />
     </div>
   );
