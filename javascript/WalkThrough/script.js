@@ -55,8 +55,7 @@ const popover = (elementDimention) => {
     top: ${bottom + 5}px;
     left: ${(left + right) / 2 - 50}px;
     background: white;
-    width: 120px;
-    height: 100px;
+    height: 10px;
   `;
   ele.appendChild(navigationButton());
   document.getElementById("wrapper").appendChild(ele);
