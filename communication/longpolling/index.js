@@ -25,7 +25,7 @@ app.get("/update-data", (req, res) => {
       client.json({ data });
     }
   }
-  res.send({ data });
+  res.send({ sucess: true });
 });
 
 const port = 4000;
